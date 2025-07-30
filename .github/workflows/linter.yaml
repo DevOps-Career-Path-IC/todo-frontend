@@ -1,0 +1,27 @@
+name: CI - Frontend Linter and Formatting
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+
+jobs:
+  linter-and-formatting:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: |
+          npm install -g eslint prettier
+
+      - name: Run ESLint
+        run: |
+          npx eslint . --ext .js,.jsx,.ts,.tsx --fix
+
+      - name: Run Prettier
+        run: |
+          npx prettier . --write --list-different
