@@ -6,6 +6,7 @@ on:
   workflow_dispatch:
 env:
   region: ap-southeast-1
+  REACT_APP_API_URL: ${{ vars.REACT_APP_API_URL }}
 permissions:
   id-token: write
   contents: read
@@ -19,6 +20,8 @@ jobs:
         with:
           node-version: '22.14.0'
       - name: Install required packages and build react application
+        env:
+          REACT_APP_API_URL: ${{ env.REACT_APP_API_URL }}
         run: |
           npm install
           npm run build
